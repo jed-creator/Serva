@@ -35,7 +35,7 @@ export default async function NewBusinessPage() {
         </h1>
         <p className="text-zinc-600 mt-1">
           Add your business details so customers can find and book you on
-          Serva. You can edit anything later.
+          Orvo. You can edit anything later.
         </p>
       </div>
       <BusinessForm

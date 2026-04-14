@@ -16,7 +16,7 @@ import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/auth-context';
 import type { Service, FormTemplate, FormField } from '@/lib/types';
 import { formatPrice } from '@/lib/types';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 interface ServiceWithBusiness extends Service {
   business: { id: string; name: string } | null;
@@ -154,7 +154,7 @@ export default function BookServiceScreen() {
   if (loading) {
     return (
       <SafeAreaView style={styles.center}>
-        <ActivityIndicator color={ServaTheme.accent} />
+        <ActivityIndicator color={OrvoTheme.accent} />
       </SafeAreaView>
     );
   }
@@ -258,7 +258,7 @@ export default function BookServiceScreen() {
             disabled={submitting}
           >
             {submitting ? (
-              <ActivityIndicator color={ServaTheme.primaryForeground} />
+              <ActivityIndicator color={OrvoTheme.primaryForeground} />
             ) : (
               <Text style={styles.buttonText}>
                 Book {formatPrice(service.price_cents, service.price_type)}
@@ -277,17 +277,17 @@ export default function BookServiceScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   flex: { flex: 1 },
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: ServaTheme.background,
+    backgroundColor: OrvoTheme.background,
   },
   content: { padding: 20, paddingBottom: 60 },
   serviceCard: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     padding: 16,
     borderRadius: 12,
     marginBottom: 24,
@@ -295,11 +295,11 @@ const styles = StyleSheet.create({
   serviceName: {
     fontSize: 18,
     fontWeight: '700',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   serviceBiz: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginTop: 2,
   },
   serviceMeta: {
@@ -310,16 +310,16 @@ const styles = StyleSheet.create({
   servicePrice: {
     fontSize: 17,
     fontWeight: '700',
-    color: ServaTheme.primary,
+    color: OrvoTheme.primary,
   },
   serviceDuration: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
   },
   sectionTitle: {
     fontSize: 12,
     fontWeight: '700',
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 12,
@@ -328,44 +328,44 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginTop: 14,
     marginBottom: 6,
   },
-  req: { color: ServaTheme.destructive },
+  req: { color: OrvoTheme.destructive },
   helpText: {
     fontSize: 12,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginBottom: 4,
   },
   input: {
     height: 48,
     borderWidth: 1,
-    borderColor: ServaTheme.border,
+    borderColor: OrvoTheme.border,
     borderRadius: 8,
     paddingHorizontal: 14,
     fontSize: 16,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   textarea: {
     minHeight: 80,
     borderWidth: 1,
-    borderColor: ServaTheme.border,
+    borderColor: OrvoTheme.border,
     borderRadius: 8,
     paddingHorizontal: 14,
     paddingTop: 12,
     fontSize: 16,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     textAlignVertical: 'top',
   },
   formDescription: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginBottom: 8,
   },
   button: {
     height: 52,
-    backgroundColor: ServaTheme.primary,
+    backgroundColor: OrvoTheme.primary,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -373,13 +373,13 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: { opacity: 0.6 },
   buttonText: {
-    color: ServaTheme.primaryForeground,
+    color: OrvoTheme.primaryForeground,
     fontSize: 16,
     fontWeight: '600',
   },
   disclaimer: {
     fontSize: 12,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textAlign: 'center',
     marginTop: 12,
     lineHeight: 18,
@@ -394,6 +394,6 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
   },
 });

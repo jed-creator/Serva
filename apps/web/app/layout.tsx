@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Serva — Book local services instantly',
-    template: '%s · Serva',
+    default: 'Orvo — Book local services instantly',
+    template: '%s · Orvo',
   },
   description:
-    'Serva is a universal booking & payments marketplace. Find, book, and pay for local services instantly — salons, trainers, therapists, and more.',
+    'Orvo is a universal booking & payments marketplace. Find, book, and pay for local services instantly — salons, trainers, therapists, and more.',
 };
 
 export default function RootLayout({

@@ -62,7 +62,7 @@ export default async function AdminDashboardPage() {
         <h1 className="text-3xl font-semibold tracking-tight text-brand-primary">
           Platform overview
         </h1>
-        <p className="text-zinc-600 mt-1">Serva marketplace metrics.</p>
+        <p className="text-zinc-600 mt-1">Orvo marketplace metrics.</p>
       </div>
 
       <div className="grid md:grid-cols-4 gap-4">

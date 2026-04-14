@@ -11,7 +11,7 @@ export default function AuthLayout({
         <div className="max-w-6xl mx-auto px-6 py-4">
           <Link href="/" className="inline-flex items-center gap-2">
             <span className="text-xl font-semibold tracking-tight text-brand-primary">
-              Serva
+              Orvo
             </span>
           </Link>
         </div>
@@ -21,7 +21,7 @@ export default function AuthLayout({
       </main>
       <footer className="border-t border-zinc-200 bg-white">
         <div className="max-w-6xl mx-auto px-6 py-4 text-center text-xs text-zinc-500">
-          © {new Date().getFullYear()} Serva · Universal Booking Marketplace
+          © {new Date().getFullYear()} Orvo · Universal Booking Marketplace
         </div>
       </footer>
     </div>

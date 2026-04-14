@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useFocusEffect } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/auth-context';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 interface BookingRow {
   id: string;
@@ -75,7 +75,7 @@ export default function BookingsScreen() {
 
       {loading ? (
         <View style={styles.center}>
-          <ActivityIndicator color={ServaTheme.accent} />
+          <ActivityIndicator color={OrvoTheme.accent} />
         </View>
       ) : bookings.length === 0 ? (
         <View style={styles.center}>
@@ -122,12 +122,12 @@ export default function BookingsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   header: { padding: 20, paddingBottom: 12 },
   title: {
     fontSize: 28,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   center: {
     flex: 1,
@@ -138,17 +138,17 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginBottom: 4,
   },
   emptySub: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textAlign: 'center',
   },
   list: { padding: 20, paddingTop: 0, gap: 12 },
   card: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     padding: 16,
     borderRadius: 12,
     gap: 4,
@@ -157,23 +157,23 @@ const styles = StyleSheet.create({
   bizName: {
     fontSize: 16,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   serviceName: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 4,
   },
-  meta: { fontSize: 13, color: ServaTheme.mutedForeground },
+  meta: { fontSize: 13, color: OrvoTheme.mutedForeground },
   status: { textTransform: 'capitalize' },
   price: {
     fontSize: 15,
     fontWeight: '600',
-    color: ServaTheme.primary,
+    color: OrvoTheme.primary,
     marginTop: 4,
   },
 });

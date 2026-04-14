@@ -25,7 +25,7 @@ export default function LoginPage() {
       <CardHeader>
         <CardTitle>Sign in</CardTitle>
         <CardDescription>
-          Welcome back to Serva. Enter your email and password to continue.
+          Welcome back to Orvo. Enter your email and password to continue.
         </CardDescription>
       </CardHeader>
       <CardContent>

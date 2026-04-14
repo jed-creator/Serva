@@ -12,7 +12,7 @@ import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import type { Business, Service, Review } from '@/lib/types';
 import { formatPrice } from '@/lib/types';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 type Tab = 'services' | 'reviews' | 'info';
 
@@ -57,7 +57,7 @@ export default function BusinessDetailScreen() {
   if (loading) {
     return (
       <SafeAreaView style={styles.center}>
-        <ActivityIndicator color={ServaTheme.accent} />
+        <ActivityIndicator color={OrvoTheme.accent} />
       </SafeAreaView>
     );
   }
@@ -204,28 +204,28 @@ export default function BusinessDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: ServaTheme.background,
+    backgroundColor: OrvoTheme.background,
   },
   header: { padding: 20, gap: 6 },
   name: {
     fontSize: 28,
     fontWeight: '700',
-    color: ServaTheme.primary,
+    color: OrvoTheme.primary,
   },
   rating: {
     fontSize: 15,
     color: '#F59E0B',
     fontWeight: '600',
   },
-  reviewCount: { color: ServaTheme.mutedForeground, fontWeight: '400' },
+  reviewCount: { color: OrvoTheme.mutedForeground, fontWeight: '400' },
   description: {
     fontSize: 15,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     lineHeight: 22,
     marginTop: 8,
   },
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: ServaTheme.border,
+    borderColor: OrvoTheme.border,
     marginTop: 8,
   },
   tab: {
@@ -243,18 +243,18 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: ServaTheme.primary,
+    borderBottomColor: OrvoTheme.primary,
   },
   tabLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
   },
-  activeTabLabel: { color: ServaTheme.primary },
+  activeTabLabel: { color: OrvoTheme.primary },
   tabContent: { padding: 20 },
   servicesList: { gap: 12 },
   serviceCard: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     padding: 16,
     borderRadius: 12,
   },
@@ -267,44 +267,44 @@ const styles = StyleSheet.create({
   serviceName: {
     fontSize: 16,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   serviceDesc: {
     fontSize: 13,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginTop: 2,
   },
   serviceDuration: {
     fontSize: 12,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginTop: 4,
   },
   servicePrice: {
     fontSize: 16,
     fontWeight: '700',
-    color: ServaTheme.primary,
+    color: OrvoTheme.primary,
   },
   bookHint: {
     fontSize: 12,
-    color: ServaTheme.accent,
+    color: OrvoTheme.accent,
     fontWeight: '500',
     marginTop: 8,
   },
   reviewsList: { gap: 16 },
   reviewCard: {
     borderBottomWidth: 1,
-    borderBottomColor: ServaTheme.border,
+    borderBottomColor: OrvoTheme.border,
     paddingBottom: 12,
   },
   reviewRating: { color: '#F59E0B', fontSize: 14 },
   reviewAuthor: {
     fontSize: 13,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginTop: 2,
   },
   reviewComment: {
     fontSize: 14,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginTop: 6,
     lineHeight: 20,
   },
@@ -312,19 +312,19 @@ const styles = StyleSheet.create({
   infoRow: {},
   infoLabel: {
     fontSize: 11,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 4,
   },
   infoValue: {
     fontSize: 15,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     lineHeight: 22,
   },
   emptyText: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textAlign: 'center',
     paddingVertical: 20,
   },

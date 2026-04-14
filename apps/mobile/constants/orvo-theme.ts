@@ -1,8 +1,8 @@
 /**
- * Serva brand palette — shared across mobile screens.
+ * Orvo brand palette — shared across mobile screens.
  * Matches apps/web/app/globals.css.
  */
-export const ServaTheme = {
+export const OrvoTheme = {
   primary: '#1A1F36',
   primaryForeground: '#FFFFFF',
   accent: '#4A6CF7',

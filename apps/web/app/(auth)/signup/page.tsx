@@ -54,7 +54,7 @@ export default function SignupPage() {
       <CardHeader>
         <CardTitle>Create your account</CardTitle>
         <CardDescription>
-          Start using Serva to book or manage services in minutes.
+          Start using Orvo to book or manage services in minutes.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -138,7 +138,7 @@ export default function SignupPage() {
               className="flex h-10 w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent"
             >
               <option value="consumer">Book services as a customer</option>
-              <option value="provider">List my business on Serva</option>
+              <option value="provider">List my business on Orvo</option>
             </select>
           </div>
 

@@ -13,7 +13,7 @@ import {
 import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '@/contexts/auth-context';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 export default function SignUpScreen() {
   const { signUp } = useAuth();
@@ -66,10 +66,10 @@ export default function SignUpScreen() {
           contentContainerStyle={styles.scroll}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.brand}>Serva</Text>
+          <Text style={styles.brand}>Orvo</Text>
           <Text style={styles.title}>Create your account</Text>
           <Text style={styles.subtitle}>
-            Join Serva to find and book local services.
+            Join Orvo to find and book local services.
           </Text>
 
           {error && <Text style={styles.error}>{error}</Text>}
@@ -130,7 +130,7 @@ export default function SignUpScreen() {
             disabled={loading}
           >
             {loading ? (
-              <ActivityIndicator color={ServaTheme.primaryForeground} />
+              <ActivityIndicator color={OrvoTheme.primaryForeground} />
             ) : (
               <Text style={styles.buttonText}>Create account</Text>
             )}
@@ -149,25 +149,25 @@ export default function SignUpScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   flex: { flex: 1 },
   scroll: { padding: 24, flexGrow: 1, justifyContent: 'center' },
   brand: {
     fontSize: 28,
     fontWeight: '700',
-    color: ServaTheme.primary,
+    color: OrvoTheme.primary,
     marginBottom: 24,
     letterSpacing: -0.5,
   },
   title: {
     fontSize: 28,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 15,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginBottom: 20,
   },
   row: { flexDirection: 'row', gap: 12 },
@@ -175,22 +175,22 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginTop: 14,
     marginBottom: 6,
   },
   input: {
     height: 48,
     borderWidth: 1,
-    borderColor: ServaTheme.border,
+    borderColor: OrvoTheme.border,
     borderRadius: 8,
     paddingHorizontal: 14,
     fontSize: 16,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   button: {
     height: 52,
-    backgroundColor: ServaTheme.primary,
+    backgroundColor: OrvoTheme.primary,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: { opacity: 0.6 },
   buttonText: {
-    color: ServaTheme.primaryForeground,
+    color: OrvoTheme.primaryForeground,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -223,6 +223,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 24,
   },
-  footerText: { color: ServaTheme.mutedForeground, fontSize: 14 },
-  link: { color: ServaTheme.accent, fontSize: 14, fontWeight: '600' },
+  footerText: { color: OrvoTheme.mutedForeground, fontSize: 14 },
+  link: { color: OrvoTheme.accent, fontSize: 14, fontWeight: '600' },
 });

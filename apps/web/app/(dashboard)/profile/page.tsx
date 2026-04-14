@@ -68,7 +68,7 @@ export default async function ProfilePage() {
         <CardHeader>
           <CardTitle>Complete your profile</CardTitle>
           <CardDescription>
-            Tell us a bit about yourself so we can personalize your Serva
+            Tell us a bit about yourself so we can personalize your Orvo
             experience.
           </CardDescription>
         </CardHeader>

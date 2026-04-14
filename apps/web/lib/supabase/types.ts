@@ -1,5 +1,5 @@
 /**
- * Supabase database types for Serva.
+ * Supabase database types for Orvo.
  *
  * Hand-authored from db/migrations/001_initial_schema.sql. When the schema
  * grows, we can replace this with `supabase gen types typescript` output.

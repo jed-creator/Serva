@@ -67,7 +67,7 @@ export default async function DashboardLayout({
             href="/dashboard"
             className="text-xl font-semibold tracking-tight text-brand-primary"
           >
-            Serva
+            Orvo
           </Link>
           <nav className="flex items-center gap-5">
             {navLinks.map((l) => (
@@ -94,7 +94,7 @@ export default async function DashboardLayout({
         {isProfileIncomplete && (
           <div className="bg-amber-50 border-b border-amber-200">
             <div className="max-w-6xl mx-auto px-6 py-3 text-sm text-amber-900">
-              Complete your profile to unlock the full Serva experience.{' '}
+              Complete your profile to unlock the full Orvo experience.{' '}
               <Link href="/profile" className="font-medium underline">
                 Finish now →
               </Link>

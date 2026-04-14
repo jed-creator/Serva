@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import type { Business } from '@/lib/types';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 interface SearchRow extends Business {
   category: { name: string | null } | null;
@@ -64,7 +64,7 @@ export default function SearchScreen() {
         <TextInput
           style={styles.searchInput}
           placeholder="Search businesses by name…"
-          placeholderTextColor={ServaTheme.mutedForeground}
+          placeholderTextColor={OrvoTheme.mutedForeground}
           value={query}
           onChangeText={setQuery}
           returnKeyType="search"
@@ -80,7 +80,7 @@ export default function SearchScreen() {
 
       {loading ? (
         <View style={styles.center}>
-          <ActivityIndicator color={ServaTheme.accent} />
+          <ActivityIndicator color={OrvoTheme.accent} />
         </View>
       ) : results.length === 0 ? (
         <View style={styles.center}>
@@ -125,25 +125,25 @@ export default function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   header: { padding: 20, paddingBottom: 12, gap: 12 },
   title: {
     fontSize: 28,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   searchInput: {
     height: 48,
     borderWidth: 1,
-    borderColor: ServaTheme.border,
+    borderColor: OrvoTheme.border,
     borderRadius: 12,
     paddingHorizontal: 14,
     fontSize: 16,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   filterPill: {
     fontSize: 13,
-    color: ServaTheme.accent,
+    color: OrvoTheme.accent,
     fontWeight: '500',
     textTransform: 'capitalize',
   },
@@ -155,11 +155,11 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
   },
   list: { padding: 20, paddingTop: 0, gap: 12 },
   card: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
@@ -167,17 +167,17 @@ const styles = StyleSheet.create({
   bizName: {
     fontSize: 17,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   bizCategory: {
     fontSize: 12,
-    color: ServaTheme.accent,
+    color: OrvoTheme.accent,
     fontWeight: '500',
     marginTop: 2,
   },
   bizDesc: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginTop: 6,
   },
   bizRating: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   bizReviews: {
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     fontWeight: '400',
   },
 });

@@ -6,10 +6,10 @@ import { test, expect } from '@playwright/test';
  */
 
 test.describe('Public routes', () => {
-  test('landing page loads and shows Serva brand', async ({ page }) => {
+  test('landing page loads and shows Orvo brand', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/Serva/);
-    await expect(page.getByText('Serva').first()).toBeVisible();
+    await expect(page).toHaveTitle(/Orvo/);
+    await expect(page.getByText('Orvo').first()).toBeVisible();
     await expect(
       page.getByRole('link', { name: 'Get started free' }),
     ).toBeVisible();

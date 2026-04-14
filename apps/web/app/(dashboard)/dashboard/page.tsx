@@ -62,7 +62,7 @@ export default async function DashboardPage() {
         <p className="text-zinc-600 mt-1">
           {isProvider
             ? 'Manage your business, services, and bookings here.'
-            : 'Find and book local services across Serva.'}
+            : 'Find and book local services across Orvo.'}
         </p>
       </div>
 
@@ -72,7 +72,7 @@ export default async function DashboardPage() {
             <CardTitle>Create your business profile</CardTitle>
             <CardDescription>
               Set up your business to list services, manage availability, and
-              accept bookings on Serva.
+              accept bookings on Orvo.
             </CardDescription>
           </CardHeader>
           <CardContent>

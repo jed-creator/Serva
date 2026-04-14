@@ -56,7 +56,7 @@ export default async function SettingsPage() {
         <CardHeader>
           <CardTitle className="text-lg">Notification preferences</CardTitle>
           <CardDescription>
-            How Serva contacts you. Edit from the profile page.
+            How Orvo contacts you. Edit from the profile page.
           </CardDescription>
         </CardHeader>
         <CardContent className="text-sm text-zinc-700 space-y-1">

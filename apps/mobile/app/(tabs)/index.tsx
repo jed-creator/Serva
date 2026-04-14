@@ -12,7 +12,7 @@ import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/auth-context';
 import { supabase } from '@/lib/supabase';
 import type { Category, Business } from '@/lib/types';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 export default function HomeScreen() {
   const { user } = useAuth();
@@ -46,7 +46,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.brand}>Serva</Text>
+        <Text style={styles.brand}>Orvo</Text>
         <Text style={styles.hello}>
           Hi{user?.email ? `, ${user.email.split('@')[0]}` : ''}
         </Text>
@@ -63,7 +63,7 @@ export default function HomeScreen() {
 
         <Text style={styles.sectionTitle}>Categories</Text>
         {loading && categories.length === 0 ? (
-          <ActivityIndicator color={ServaTheme.accent} />
+          <ActivityIndicator color={OrvoTheme.accent} />
         ) : (
           <View style={styles.categoryGrid}>
             {categories.map((c) => (
@@ -124,39 +124,39 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   content: { padding: 20, paddingBottom: 40 },
   brand: {
     fontSize: 24,
     fontWeight: '700',
-    color: ServaTheme.primary,
+    color: OrvoTheme.primary,
     marginBottom: 16,
     letterSpacing: -0.5,
   },
   hello: {
     fontSize: 28,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   subtitle: {
     fontSize: 15,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginTop: 4,
     marginBottom: 20,
   },
   searchBox: {
     height: 48,
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     borderRadius: 12,
     paddingHorizontal: 14,
     justifyContent: 'center',
     marginBottom: 24,
   },
-  searchPlaceholder: { color: ServaTheme.mutedForeground, fontSize: 15 },
+  searchPlaceholder: { color: OrvoTheme.mutedForeground, fontSize: 15 },
   sectionTitle: {
     fontSize: 12,
     fontWeight: '700',
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 12,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   categoryCard: {
     width: '30%',
     aspectRatio: 1,
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
@@ -181,25 +181,25 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 12,
     fontWeight: '500',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     textAlign: 'center',
     paddingHorizontal: 4,
   },
   featuredList: { gap: 12 },
   bizCard: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     padding: 16,
     borderRadius: 12,
   },
   bizName: {
     fontSize: 17,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginBottom: 4,
   },
   bizDesc: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginBottom: 8,
   },
   bizRating: {
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bizReviews: {
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     fontWeight: '400',
   },
 });

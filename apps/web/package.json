@@ -1,8 +1,8 @@
 {
-  "name": "@serva/web",
+  "name": "@orvo/web",
   "version": "0.1.0",
   "private": true,
-  "description": "Serva business dashboard and admin panel (Next.js 16)",
+  "description": "Orvo business dashboard and admin panel (Next.js 16)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

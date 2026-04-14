@@ -9,7 +9,7 @@
  *      on behalf of the business, saves the account id to businesses.stripe_account_id,
  *      generates an Account Link URL, and redirects the owner there.
  *   3. Stripe hosts the onboarding flow (KYC, bank details, terms)
- *   4. When the owner returns to Serva, /dashboard/stripe fetches the
+ *   4. When the owner returns to Orvo, /dashboard/stripe fetches the
  *      account status and displays it. On success they can accept payments.
  */
 import { createClient } from '@/lib/supabase/server';

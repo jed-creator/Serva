@@ -3,14 +3,14 @@ import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: ServaTheme.accent,
-        tabBarInactiveTintColor: ServaTheme.mutedForeground,
+        tabBarActiveTintColor: OrvoTheme.accent,
+        tabBarInactiveTintColor: OrvoTheme.mutedForeground,
         headerShown: false,
         tabBarButton: HapticTab,
       }}

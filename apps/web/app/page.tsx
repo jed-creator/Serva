@@ -10,7 +10,7 @@ export default function HomePage() {
             href="/"
             className="text-xl font-semibold tracking-tight text-brand-primary"
           >
-            Serva
+            Orvo
           </Link>
           <nav className="flex items-center gap-2">
             <Link href="/login">
@@ -33,7 +33,7 @@ export default function HomePage() {
             in seconds.
           </h1>
           <p className="text-lg md:text-xl text-zinc-600 mb-10 max-w-2xl mx-auto">
-            Serva is the universal booking marketplace connecting you with
+            Orvo is the universal booking marketplace connecting you with
             salons, personal trainers, therapists, and hundreds of other local
             service providers — instant booking, secure payments, verified
             reviews.
@@ -53,7 +53,7 @@ export default function HomePage() {
 
       <footer className="border-t border-zinc-200 bg-zinc-50">
         <div className="max-w-6xl mx-auto px-6 py-6 text-center text-sm text-zinc-500">
-          © {new Date().getFullYear()} Serva · Universal Booking Marketplace
+          © {new Date().getFullYear()} Orvo · Universal Booking Marketplace
         </div>
       </footer>
     </div>

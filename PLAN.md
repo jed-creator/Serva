@@ -1,6 +1,6 @@
-# Serva MVP Build Plan
+# Orvo MVP Build Plan
 
-**Project:** Serva — Universal Booking & Payments Marketplace
+**Project:** Orvo — Universal Booking & Payments Marketplace
 **Goal:** Complete 108-step MVP build from source PDFs (Build Guide, Roadmap, Tech Spec, Architecture)
 **Stack:** Next.js 14 (TypeScript) + React Native/Expo + Supabase + Stripe Connect + Vercel
 **Timeline:** 10 phases, 108 steps, executed in batches with checkpoints
@@ -43,7 +43,7 @@ Supabase Auth with email/password + social providers, profile completion, middle
 ### Phase 4 — Business Dashboard Core (Steps 36-50)
 Next.js + Tailwind + shadcn/ui. Business onboarding, profile, services, availability, calendar, bookings list, Stripe Connect, analytics, email notifications.
 
-**Milestone:** A business can fully set up on Serva and manage bookings.
+**Milestone:** A business can fully set up on Orvo and manage bookings.
 
 ### Phase 5 — Business Dashboard Advanced (Steps 51-58)
 Intake form builder, form previews, staff manager, reviews management, settings.

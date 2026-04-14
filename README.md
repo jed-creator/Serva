@@ -1,8 +1,8 @@
-# Serva
+# Orvo
 
 **Universal Booking & Payments Marketplace**
 
-Serva is a two-sided marketplace connecting consumers with local service businesses (salons, personal trainers, therapists, dog walkers, tutors, and more) for instant booking and payment.
+Orvo is a two-sided marketplace connecting consumers with local service businesses (salons, personal trainers, therapists, dog walkers, tutors, and more) for instant booking and payment.
 
 ## Architecture
 
@@ -43,17 +43,17 @@ See [`PLAN.md`](./PLAN.md) for the full build plan.
 npm install
 
 # Run the web app (Next.js)
-npm run dev --workspace=@serva/web
+npm run dev --workspace=@orvo/web
 
 # Run the mobile app (Expo)
-npm run start --workspace=@serva/mobile
+npm run start --workspace=@orvo/mobile
 ```
 
 ## Documentation
 
 Source specification documents live in `/docs`:
-- `Serva - Step by Step Build Guide.pdf` — The 108-step implementation guide
-- `Serva - MVP Development Roadmap.pdf` — Timeline and budget
-- `Serva - Technical Specification.pdf` — Feature specification
-- `Serva - Technical Architecture.pdf` — Long-term architecture vision
-- `Serva - Business Plan.pdf`, `Serva - Pitch Deck.pdf` — Business context
+- `Orvo - Step by Step Build Guide.pdf` — The 108-step implementation guide
+- `Orvo - MVP Development Roadmap.pdf` — Timeline and budget
+- `Orvo - Technical Specification.pdf` — Feature specification
+- `Orvo - Technical Architecture.pdf` — Long-term architecture vision
+- `Orvo - Business Plan.pdf`, `Orvo - Pitch Deck.pdf` — Business context

@@ -46,7 +46,7 @@ export async function geocodeAddress(params: {
   try {
     const res = await fetch(url.toString(), {
       headers: {
-        'User-Agent': 'Serva/0.1 (serva.app; contact@serva.app)',
+        'User-Agent': 'Orvo/0.1 (orvo.app; contact@orvo.app)',
         Accept: 'application/json',
       },
     });

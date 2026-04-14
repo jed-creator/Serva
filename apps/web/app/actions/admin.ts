@@ -47,8 +47,8 @@ export async function approveBusinessAction(businessId: string) {
       await resend.emails.send({
         from: FROM_EMAIL,
         to: owner.email,
-        subject: `${business.name} has been approved on Serva`,
-        html: `<p>Hi ${owner.first_name || 'there'},</p><p>Your business <strong>${business.name}</strong> is now approved and live on Serva. Customers can start finding and booking your services right away.</p><p>— The Serva team</p>`,
+        subject: `${business.name} has been approved on Orvo`,
+        html: `<p>Hi ${owner.first_name || 'there'},</p><p>Your business <strong>${business.name}</strong> is now approved and live on Orvo. Customers can start finding and booking your services right away.</p><p>— The Orvo team</p>`,
       });
     }
   }
@@ -82,7 +82,7 @@ export async function rejectBusinessAction(
         from: FROM_EMAIL,
         to: owner.email,
         subject: `${business.name} application update`,
-        html: `<p>Hi ${owner.first_name || 'there'},</p><p>Your business <strong>${business.name}</strong> needs some changes before it can be approved:</p><p><em>${reason}</em></p><p>You can edit your business details at any time and we'll review again.</p><p>— The Serva team</p>`,
+        html: `<p>Hi ${owner.first_name || 'there'},</p><p>Your business <strong>${business.name}</strong> needs some changes before it can be approved:</p><p><em>${reason}</em></p><p>You can edit your business details at any time and we'll review again.</p><p>— The Orvo team</p>`,
       });
     }
   }

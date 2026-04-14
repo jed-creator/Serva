@@ -61,7 +61,7 @@ export default async function StripePage({
         </h1>
         <p className="text-zinc-600 mt-1">
           Connect your bank account with Stripe to accept payments from
-          Serva customers.
+          Orvo customers.
         </p>
       </div>
 

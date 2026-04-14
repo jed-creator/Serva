@@ -1,8 +1,8 @@
 -- =============================================================================
--- SERVA — Initial Database Schema
+-- ORVO — Initial Database Schema
 -- Build Guide Phase 2 — Steps 16-28 (condensed to one migration)
 -- =============================================================================
--- This migration creates the complete schema for Serva MVP:
+-- This migration creates the complete schema for Orvo MVP:
 --   * Extensions (PostGIS, uuid-ossp, pg_trgm)
 --   * Custom ENUM types for status fields
 --   * Tables (profiles, businesses, services, staff, bookings, payments,

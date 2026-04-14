@@ -91,8 +91,8 @@ export async function GET(request: Request) {
         from: FROM_EMAIL,
         to: b.consumer.email,
         subject: `Reminder: ${serviceName} at ${businessName} tomorrow`,
-        html: `<p>Hi ${customerName},</p><p>This is a friendly reminder that you have a booking for <strong>${serviceName}</strong> at <strong>${businessName}</strong> on <strong>${when}</strong>.</p><p>See you then!</p><p>— Serva</p>`,
-        text: `Reminder: ${serviceName} at ${businessName} on ${when}. See you then! — Serva`,
+        html: `<p>Hi ${customerName},</p><p>This is a friendly reminder that you have a booking for <strong>${serviceName}</strong> at <strong>${businessName}</strong> on <strong>${when}</strong>.</p><p>See you then!</p><p>— Orvo</p>`,
+        text: `Reminder: ${serviceName} at ${businessName} on ${when}. See you then! — Orvo`,
       });
       result.email = !res.error;
     }

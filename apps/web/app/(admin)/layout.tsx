@@ -41,7 +41,7 @@ export default async function AdminLayout({
             href="/admin"
             className="text-xl font-semibold tracking-tight text-white"
           >
-            Serva <span className="text-zinc-400 font-normal">· Admin</span>
+            Orvo <span className="text-zinc-400 font-normal">· Admin</span>
           </Link>
           <nav className="flex items-center gap-5">
             {links.map((l) => (

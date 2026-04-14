@@ -1,5 +1,5 @@
 /**
- * Push notification setup for Serva mobile.
+ * Push notification setup for Orvo mobile.
  *
  * Registers the device's Expo push token and saves it to the user's
  * push_tokens row so the backend can send reminders + updates.

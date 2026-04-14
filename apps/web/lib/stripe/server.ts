@@ -18,7 +18,7 @@ export const stripe = new Stripe(stripeSecretKey, {
   apiVersion: '2026-03-25.dahlia',
   typescript: true,
   appInfo: {
-    name: 'Serva',
+    name: 'Orvo',
     version: '0.1.0',
   },
 });

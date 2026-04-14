@@ -1,4 +1,4 @@
-# Serva — Launch Guide
+# Orvo — Launch Guide
 
 Phase 10 manual deployment instructions. Code/config is already in place;
 this file walks you through the steps only you can do (browser dashboards,
@@ -23,7 +23,7 @@ account approvals, etc.).
 ## Step 100 — Deploy web to Vercel
 
 1. Go to **https://vercel.com/new**
-2. Click **Import Git Repository** → select `jed-creator/Serva`
+2. Click **Import Git Repository** → select `jed-creator/Orvo`
 3. Vercel auto-detects Next.js. Configure the project:
    - **Framework preset:** Next.js (auto)
    - **Root directory:** `apps/web` ← IMPORTANT (click Edit, change from `./`)
@@ -47,7 +47,7 @@ account approvals, etc.).
    CRON_SECRET                      (generate any random string — used to secure the hourly cron)
    ```
 5. Click **Deploy**. Wait 3-5 minutes.
-6. When build completes you'll get `https://serva-xxx.vercel.app`. Open it
+6. When build completes you'll get `https://orvo-xxx.vercel.app`. Open it
    and verify the landing page loads.
 
 ### Step 100b — Configure Stripe webhook
@@ -73,7 +73,7 @@ Now that we have a public URL:
 
 **Skip if you haven't bought a domain yet.** Otherwise:
 
-1. Buy a domain from any registrar (`serva.app`, `getserva.com`, etc.)
+1. Buy a domain from any registrar (`orvo.app`, `getserva.com`, etc.)
 2. In Vercel: Project → Settings → Domains → Add domain
 3. Enter your domain. Vercel shows you the DNS records to set.
 4. Log into your registrar and add the CNAME / A records shown.
@@ -145,7 +145,7 @@ deferred from Phase 1 Step 11.
 from Step 11.
 
 1. Enroll at https://play.google.com/console
-2. Create a new app in Play Console. Package name: `com.serva.mobile`
+2. Create a new app in Play Console. Package name: `com.orvo.mobile`
    (or similar — make sure it matches `app.json` `android.package`).
 3. Upload an AAB:
    ```bash

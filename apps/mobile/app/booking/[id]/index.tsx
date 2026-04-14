@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { supabase } from '@/lib/supabase';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 interface BookingDetail {
   id: string;
@@ -82,7 +82,7 @@ export default function BookingDetailScreen() {
   if (loading) {
     return (
       <SafeAreaView style={styles.center}>
-        <ActivityIndicator color={ServaTheme.accent} />
+        <ActivityIndicator color={OrvoTheme.accent} />
       </SafeAreaView>
     );
   }
@@ -189,22 +189,22 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: ServaTheme.background,
+    backgroundColor: OrvoTheme.background,
   },
   content: { padding: 20 },
   title: {
     fontSize: 24,
     fontWeight: '700',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   bizName: {
     fontSize: 15,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     marginTop: 2,
   },
   status: {
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   card: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     borderRadius: 12,
     padding: 16,
     marginTop: 20,
@@ -222,10 +222,10 @@ const styles = StyleSheet.create({
   },
   infoCard: { marginTop: 12 },
   row: { flexDirection: 'row', justifyContent: 'space-between' },
-  rowLabel: { fontSize: 13, color: ServaTheme.mutedForeground },
+  rowLabel: { fontSize: 13, color: OrvoTheme.mutedForeground },
   rowValue: {
     fontSize: 14,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     fontWeight: '500',
     textAlign: 'right',
     flex: 1,
@@ -234,18 +234,18 @@ const styles = StyleSheet.create({
   infoLabel: {
     fontSize: 11,
     textTransform: 'uppercase',
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     letterSpacing: 0.5,
   },
   infoValue: {
     fontSize: 14,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginTop: 4,
   },
   actions: { marginTop: 24, gap: 12 },
   button: {
     height: 52,
-    backgroundColor: ServaTheme.primary,
+    backgroundColor: OrvoTheme.primary,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -253,13 +253,13 @@ const styles = StyleSheet.create({
   destructive: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: ServaTheme.destructive,
+    borderColor: OrvoTheme.destructive,
   },
   buttonText: {
-    color: ServaTheme.primaryForeground,
+    color: OrvoTheme.primaryForeground,
     fontSize: 16,
     fontWeight: '600',
   },
-  destructiveText: { color: ServaTheme.destructive },
-  emptyText: { fontSize: 14, color: ServaTheme.mutedForeground },
+  destructiveText: { color: OrvoTheme.destructive },
+  emptyText: { fontSize: 14, color: OrvoTheme.mutedForeground },
 });

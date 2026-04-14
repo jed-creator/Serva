@@ -1,5 +1,5 @@
 /**
- * Auth context for the Serva consumer app.
+ * Auth context for the Orvo consumer app.
  * Wraps the app root (in _layout.tsx) and exposes session + user + actions
  * to any screen via useAuth().
  */

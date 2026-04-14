@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
       <CardHeader>
         <CardTitle>Set a new password</CardTitle>
         <CardDescription>
-          Choose a new password for your Serva account.
+          Choose a new password for your Orvo account.
         </CardDescription>
       </CardHeader>
       <CardContent>

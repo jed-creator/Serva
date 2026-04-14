@@ -1,8 +1,8 @@
 {
-  "name": "@serva/mobile",
+  "name": "@orvo/mobile",
   "main": "expo-router/entry",
   "version": "0.1.0",
-  "description": "Serva consumer app (React Native + Expo)",
+  "description": "Orvo consumer app (React Native + Expo)",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",

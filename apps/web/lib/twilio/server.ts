@@ -1,5 +1,5 @@
 /**
- * Twilio SMS client for Serva.
+ * Twilio SMS client for Orvo.
  * Server-only — auth token stays out of the browser bundle.
  *
  * Twilio ships an official Node SDK, but to keep deps light we just
@@ -68,5 +68,5 @@ export function buildReminderSms(p: ReminderSmsParams): string {
     hour: 'numeric',
     minute: '2-digit',
   });
-  return `Serva reminder: ${p.serviceName} at ${p.businessName} on ${when}. Reply STOP to opt out.`;
+  return `Orvo reminder: ${p.serviceName} at ${p.businessName} on ${when}. Reply STOP to opt out.`;
 }

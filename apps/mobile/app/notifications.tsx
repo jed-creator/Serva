@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack, useRouter, useFocusEffect } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/auth-context';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 interface NotificationRow {
   id: string;
@@ -91,7 +91,7 @@ export default function NotificationsScreen() {
       <Stack.Screen options={{ headerShown: true, title: 'Notifications' }} />
       {loading ? (
         <View style={styles.center}>
-          <ActivityIndicator color={ServaTheme.accent} />
+          <ActivityIndicator color={OrvoTheme.accent} />
         </View>
       ) : notifications.length === 0 ? (
         <View style={styles.center}>
@@ -127,7 +127,7 @@ export default function NotificationsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   center: {
     flex: 1,
     alignItems: 'center',
@@ -137,25 +137,25 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginBottom: 4,
   },
   emptySub: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textAlign: 'center',
   },
   list: { padding: 16, gap: 8 },
   card: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     padding: 14,
     borderRadius: 12,
     marginBottom: 8,
   },
   unread: {
-    backgroundColor: ServaTheme.accent + '14',
+    backgroundColor: OrvoTheme.accent + '14',
     borderLeftWidth: 3,
-    borderLeftColor: ServaTheme.accent,
+    borderLeftColor: OrvoTheme.accent,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -166,17 +166,17 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 15,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     flex: 1,
     marginRight: 8,
   },
   timestamp: {
     fontSize: 12,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
   },
   cardMessage: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     lineHeight: 20,
   },
 });

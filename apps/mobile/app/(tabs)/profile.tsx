@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '@/contexts/auth-context';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 export default function ProfileScreen() {
   const { user, signOut } = useAuth();
@@ -34,38 +34,38 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   content: { padding: 20 },
   title: {
     fontSize: 28,
     fontWeight: '600',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginBottom: 20,
   },
   card: {
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
   },
   label: {
     fontSize: 12,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 4,
   },
-  value: { fontSize: 15, color: ServaTheme.foreground, fontWeight: '500' },
+  value: { fontSize: 15, color: OrvoTheme.foreground, fontWeight: '500' },
   signOutBtn: {
     height: 48,
-    backgroundColor: ServaTheme.muted,
+    backgroundColor: OrvoTheme.muted,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
   },
   signOutText: {
-    color: ServaTheme.destructive,
+    color: OrvoTheme.destructive,
     fontSize: 15,
     fontWeight: '600',
   },

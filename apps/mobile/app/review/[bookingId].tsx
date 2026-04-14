@@ -14,7 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/auth-context';
-import { ServaTheme } from '@/constants/serva-theme';
+import { OrvoTheme } from '@/constants/orvo-theme';
 
 interface BookingInfo {
   id: string;
@@ -72,7 +72,7 @@ export default function WriteReviewScreen() {
   if (loading) {
     return (
       <SafeAreaView style={styles.center}>
-        <ActivityIndicator color={ServaTheme.accent} />
+        <ActivityIndicator color={OrvoTheme.accent} />
       </SafeAreaView>
     );
   }
@@ -127,7 +127,7 @@ export default function WriteReviewScreen() {
             disabled={submitting}
           >
             {submitting ? (
-              <ActivityIndicator color={ServaTheme.primaryForeground} />
+              <ActivityIndicator color={OrvoTheme.primaryForeground} />
             ) : (
               <Text style={styles.buttonText}>Submit review</Text>
             )}
@@ -139,24 +139,24 @@ export default function WriteReviewScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: ServaTheme.background },
+  container: { flex: 1, backgroundColor: OrvoTheme.background },
   flex: { flex: 1 },
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: ServaTheme.background,
+    backgroundColor: OrvoTheme.background,
   },
   content: { padding: 24, flex: 1 },
   title: {
     fontSize: 24,
     fontWeight: '700',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 14,
-    color: ServaTheme.mutedForeground,
+    color: OrvoTheme.mutedForeground,
     textAlign: 'center',
     marginTop: 6,
   },
@@ -166,26 +166,26 @@ const styles = StyleSheet.create({
     gap: 8,
     marginVertical: 32,
   },
-  star: { fontSize: 48, color: ServaTheme.border },
+  star: { fontSize: 48, color: OrvoTheme.border },
   starActive: { color: '#F59E0B' },
   label: {
     fontSize: 13,
     fontWeight: '500',
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
     marginBottom: 6,
   },
   textarea: {
     minHeight: 120,
     borderWidth: 1,
-    borderColor: ServaTheme.border,
+    borderColor: OrvoTheme.border,
     borderRadius: 8,
     padding: 14,
     fontSize: 16,
-    color: ServaTheme.foreground,
+    color: OrvoTheme.foreground,
   },
   button: {
     height: 52,
-    backgroundColor: ServaTheme.primary,
+    backgroundColor: OrvoTheme.primary,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
   disabled: { opacity: 0.6 },
   buttonText: {
-    color: ServaTheme.primaryForeground,
+    color: OrvoTheme.primaryForeground,
     fontSize: 16,
     fontWeight: '600',
   },

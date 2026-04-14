@@ -21,7 +21,7 @@ function layout(innerHtml: string, preview: string): string {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Serva</title>
+    <title>Orvo</title>
   </head>
   <body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#18181b;">
     <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0;">${preview}</div>
@@ -29,7 +29,7 @@ function layout(innerHtml: string, preview: string): string {
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
         <tr>
           <td style="background:${BRAND_PRIMARY};padding:24px;color:#ffffff;">
-            <div style="font-size:22px;font-weight:600;letter-spacing:-0.02em;">Serva</div>
+            <div style="font-size:22px;font-weight:600;letter-spacing:-0.02em;">Orvo</div>
           </td>
         </tr>
         <tr>
@@ -39,8 +39,8 @@ function layout(innerHtml: string, preview: string): string {
         </tr>
         <tr>
           <td style="padding:20px 24px;border-top:1px solid #e4e4e7;color:#71717a;font-size:12px;text-align:center;">
-            Serva — Universal Booking Marketplace<br>
-            <a href="https://serva.app" style="color:${BRAND_ACCENT};text-decoration:none;">serva.app</a>
+            Orvo — Universal Booking Marketplace<br>
+            <a href="https://orvo.app" style="color:${BRAND_ACCENT};text-decoration:none;">orvo.app</a>
           </td>
         </tr>
       </table>
@@ -99,7 +99,7 @@ Total: ${formatPrice(p.totalCents)}
 
 Booking ID: ${p.bookingId}
 
-— Serva`,
+— Orvo`,
   };
 }
 
@@ -122,7 +122,7 @@ export function bookingCancelledTemplate(
 Service: ${p.serviceName}
 When: ${formatDateTime(p.startTime)}
 ${p.reason ? `Reason: ${p.reason}\n` : ''}
-— Serva`,
+— Orvo`,
   };
 }
 
@@ -143,6 +143,6 @@ export function bookingCompletedTemplate(
 
 We hope you had a great experience! Please consider leaving a review.
 
-— Serva`,
+— Orvo`,
   };
 }

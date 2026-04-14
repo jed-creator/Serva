@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright E2E test config for Serva web.
+ * Playwright E2E test config for Orvo web.
  * Assumes the dev server is already running on PORT=3333.
  * Start it with `PORT=3333 npm run dev` before running tests.
  */
