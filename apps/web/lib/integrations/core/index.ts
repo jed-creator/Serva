@@ -5,3 +5,4 @@
  */
 export * from './adapter.interface';
 export * from './registry';
+export * from './conformance';
