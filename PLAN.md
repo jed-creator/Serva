@@ -96,3 +96,68 @@ Integration tests (booking, payment), Playwright E2E, Sentry, Vercel deploy, cus
 **Git:** Not yet initialized in project directory
 **Verified tools:** Node v25.7.0, npm 11.10.1, Git 2.39.5, SSH key exists
 **Pending verification:** VS Code/Cursor installation, all SaaS accounts
+
+---
+
+# Super-App Expansion (parallel track)
+
+Layered **on top of** the MVP above: a universal search-and-book
+surface that fans a single query across 89 third-party providers
+(OpenTable, Uber, Expedia, Ticketmaster, Shopify, …) in 16
+integration categories. Full architecture in
+[`docs/SUPER_APP.md`](./docs/SUPER_APP.md); PDF Feature Outline
+coverage in [`docs/FEATURE_OUTLINE_COVERAGE.md`](./docs/FEATURE_OUTLINE_COVERAGE.md).
+
+## Expansion Phases
+
+### Phase 1 — Integration contracts + shared package
+Adapter interface, `NormalizedSearchResult`, category enum, Zod
+schemas in `packages/shared/src/super-app/`.
+
+### Phase 2 — Core registry + conformance
+`IntegrationRegistry` singleton, conformance tests, bootstrap module.
+
+### Phase 3 — Adapter rollout (89 providers, 16 categories)
+One directory per provider under `apps/web/lib/integrations/adapters/`.
+Seeded in `db/seeds/20260414_integration_providers.sql`.
+
+### Phase 4 — Per-module services + API routes + web UI
+`eat`, `book`, `ride`, `trips`, `tickets`, `shop`, `market`,
+`compare` services fan across categories. API routes expose a JSON
+search endpoint each. Next.js route groups render consumer UI.
+
+### Phase 4.13 — Anonymous-friendly auth gate
+Super-app consumer roots (`/shop`, `/eat`, `/ride`, `/trips`,
+`/tickets`, `/market`, `/book`, `/compare`, `/explore`) bypass the
+Supabase auth proxy. 41 unit tests pin exact-or-prefix matching.
+
+### Phase 5 — Mobile super-app hub
+Expo Explore tab + 8 category screens at
+`apps/mobile/app/(super-app)/`. Calls web API via
+`apps/mobile/lib/super-app-api.ts`; no adapter code in Metro's
+bundle.
+
+### Phase 6.1 — Admin Integration Hub
+`/admin/integrations` page with per-provider toggle + admin notes +
+24h error health. Migration 006 adds `enabled` + `admin_notes`
+columns to `integration_providers`.
+
+### Phase 6.2 — Book sub-filters
+`home-services` + `pet-care` wired into `booking.service.ts`
+fan-out. `BOOK_SUB_FILTERS` vocabulary + `resolveBookFilter` helper
+so the /book UI can render narrowing tabs. `GET /api/book/services`
+now accepts `?filter=<key>`.
+
+### Phase 7 — Docs
+This file's super-app section + `docs/SUPER_APP.md` + README update.
+
+### Phase 8 — Loyalty, household, privacy, wallet, preferences, a11y
+- 8.1: Orvo Points loyalty schema + earn/redeem service
+- 8.2: Household profiles (shared family accounts)
+- 8.3: Privacy dashboard (GDPR export + delete)
+- 8.4: Wallet credits schema + service
+- 8.5: Per-category notification preferences
+- 8.6: Accessibility settings (theme, font, reduced motion)
+
+### Phase 9 — Final verification
+Full test suite + typecheck across web, mobile, shared.
