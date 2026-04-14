@@ -6,3 +6,4 @@
  * imports like `@orvo/shared/super-app/shopping`.
  */
 export * from './common';
+export * from './shopping';
