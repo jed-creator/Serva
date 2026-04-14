@@ -44,8 +44,11 @@ export default async function DashboardLayout({
   ];
   if (isProvider) {
     navLinks.push(
-      { href: '/dashboard/business', label: 'Business' },
+      { href: '/dashboard/calendar', label: 'Calendar' },
+      { href: '/dashboard/bookings', label: 'Bookings' },
       { href: '/dashboard/services', label: 'Services' },
+      { href: '/dashboard/availability', label: 'Availability' },
+      { href: '/dashboard/business', label: 'Business' },
     );
   }
   navLinks.push({ href: '/profile', label: 'Profile' });
