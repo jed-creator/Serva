@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   Serva brand palette
+   Navy primary  #1A1F36
+   Blue accent   #4A6CF7
+   ============================================================================= */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --brand-primary: #1a1f36;
+  --brand-primary-fg: #ffffff;
+  --brand-accent: #4a6cf7;
+  --brand-accent-fg: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-foreground: var(--brand-primary-fg);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-foreground: var(--brand-accent-fg);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}

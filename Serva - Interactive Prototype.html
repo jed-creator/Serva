@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serva - Interactive Prototype</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --navy: #1A1F36;
+    --blue: #4A6CF7;
+    --blue-light: #6B8AFF;
+    --blue-bg: #F0F4FF;
+    --green: #10B981;
+    --green-bg: #ECFDF5;
+    --orange: #F59E0B;
+    --red: #EF4444;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-400: #9CA3AF;
+    --gray-500: #6B7280;
+    --gray-600: #4B5563;
+    --gray-700: #374151;
+    --gray-800: #1F2937;
+    --gray-900: #111827;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+    --shadow-xl: 0 20px 40px -8px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--gray-50); color: var(--gray-800); overflow-x: hidden; }
+
+  /* Phone Frame */
+  .phone-frame {
+    width: 390px; height: 844px; margin: 30px auto;
+    background: #fff; border-radius: 40px;
+    box-shadow: 0 0 0 8px #1a1a2e, 0 0 0 10px #2d2d44, var(--shadow-xl);
+    overflow: hidden; position: relative;
+  }
+  .status-bar {
+    height: 54px; background: var(--navy);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 28px 8px; color: #fff; font-size: 12px; font-weight: 600;
+  }
+  .notch { width: 120px; height: 28px; background: #000; border-radius: 0 0 16px 16px;
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 10; }
+  .screen { height: calc(100% - 54px - 70px); overflow-y: auto; overflow-x: hidden;
+    scroll-behavior: smooth; }
+  .screen::-webkit-scrollbar { display: none; }
+
+  /* Bottom Nav */
+  .bottom-nav {
+    height: 70px; background: #fff;
+    border-top: 1px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: space-around;
+    padding: 0 10px 10px;
+  }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 10px; color: var(--gray-400); cursor: pointer; transition: all 0.2s;
+    padding: 6px 12px; border-radius: 8px; }
+  .nav-item:hover { color: var(--blue); background: var(--blue-bg); }
+  .nav-item.active { color: var(--blue); font-weight: 600; }
+  .nav-item svg { width: 22px; height: 22px; }
+
+  /* Pages */
+  .page { display: none; min-height: 100%; }
+  .page.active { display: block; }
+
+  /* ─── HOME PAGE ─── */
+  .home-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #2a3158 100%);
+    padding: 20px 20px 24px; color: #fff;
+  }
+  .home-logo { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+  .home-logo span { color: var(--blue-light); }
+  .home-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+  .search-bar {
+    margin-top: 16px; display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px; padding: 12px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .search-bar:hover { background: rgba(255,255,255,0.18); }
+  .search-bar svg { width: 18px; height: 18px; color: rgba(255,255,255,0.5); flex-shrink: 0; }
+  .search-bar span { color: rgba(255,255,255,0.5); font-size: 14px; }
+
+  .categories { padding: 20px; }
+  .section-label { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 14px; }
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px;
+    cursor: pointer; transition: transform 0.15s; }
+  .cat-item:hover { transform: translateY(-2px); }
+  .cat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; box-shadow: var(--shadow);
+  }
+  .cat-name { font-size: 10.5px; font-weight: 500; color: var(--gray-600); text-align: center; line-height: 1.2; }
+
+  .featured { padding: 0 20px 20px; }
+  .business-card {
+    background: #fff; border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); margin-bottom: 14px; cursor: pointer;
+    transition: all 0.2s; border: 1px solid var(--gray-100);
+  }
+  .business-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+  .biz-img { height: 130px; background-size: cover; background-position: center; position: relative; }
+  .biz-badge { position: absolute; top: 10px; left: 10px; background: var(--blue);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 10px;
+    border-radius: 20px; }
+  .biz-info { padding: 12px 14px; }
+  .biz-name { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+  .biz-cat { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+  .biz-meta { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+  .biz-rating { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: var(--gray-700); }
+  .biz-rating .stars { color: var(--orange); }
+  .biz-price { font-size: 12px; color: var(--gray-500); }
+  .biz-distance { font-size: 12px; color: var(--gray-400); margin-left: auto; }
+
+  /* ─── BUSINESS PROFILE PAGE ─── */
+  .profile-hero { height: 180px; background-size: cover; background-position: center;
+    position: relative; }
+  .profile-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 80px; background: linear-gradient(transparent, rgba(0,0,0,0.4)); }
+  .back-btn { position: absolute; top: 12px; left: 12px; width: 34px; height: 34px;
+    background: rgba(0,0,0,0.35); backdrop-filter: blur(8px); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    color: #fff; z-index: 2; border: none; }
+  .back-btn:hover { background: rgba(0,0,0,0.5); }
+
+  .profile-info { padding: 16px 20px 0; }
+  .profile-name { font-size: 22px; font-weight: 800; color: var(--gray-900); }
+  .profile-cat-line { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+  .profile-cat { font-size: 13px; color: var(--blue); font-weight: 500; }
+  .profile-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gray-300); }
+  .profile-addr { font-size: 13px; color: var(--gray-500); }
+
+  .profile-stats { display: flex; gap: 16px; margin-top: 14px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--gray-100); }
+  .stat { display: flex; align-items: center; gap: 6px; }
+  .stat-val { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+  .stat-label { font-size: 12px; color: var(--gray-500); }
+  .stat .stars { color: var(--orange); font-size: 13px; }
+
+  .profile-tabs { display: flex; border-bottom: 2px solid var(--gray-100);
+    margin: 0 20px; }
+  .tab { flex: 1; text-align: center; padding: 12px 0; font-size: 13px;
+    font-weight: 600; color: var(--gray-400); cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+  .tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab:hover { color: var(--gray-600); }
+
+  .services-list { padding: 12px 20px 20px; }
+  .service-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--gray-100);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .service-item:hover { padding-left: 4px; }
+  .service-item:last-child { border-bottom: none; }
+  .svc-left { flex: 1; }
+  .svc-name { font-size: 14px; font-weight: 600; color: var(--gray-800); }
+  .svc-dur { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+  .svc-right { text-align: right; }
+  .svc-price { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+  .svc-book { font-size: 11px; color: var(--blue); font-weight: 600; margin-top: 3px; }
+
+  /* ─── CALENDAR PAGE ─── */
+  .cal-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-100); }
+  .cal-service-name { font-size: 16px; font-weight: 700; color: var(--gray-800); }
+  .cal-service-meta { font-size: 13px; color: var(--gray-500); margin-top: 2px; }
+
+  .month-nav { display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; }
+  .month-label { font-size: 15px; font-weight: 700; color: var(--gray-800); }
+  .month-arrow { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    background: #fff; color: var(--gray-500); }
+  .month-arrow:hover { background: var(--gray-50); }
+
+  .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0;
+    padding: 0 12px; text-align: center; }
+  .cal-day-label { font-size: 11px; font-weight: 600; color: var(--gray-400);
+    padding: 8px 0; }
+  .cal-day { font-size: 13px; padding: 10px 0; cursor: pointer;
+    border-radius: 10px; transition: all 0.15s; color: var(--gray-700); font-weight: 500; }
+  .cal-day:hover { background: var(--blue-bg); }
+  .cal-day.today { font-weight: 700; color: var(--blue); }
+  .cal-day.selected { background: var(--blue); color: #fff; font-weight: 700; }
+  .cal-day.disabled { color: var(--gray-300); cursor: default; }
+  .cal-day.disabled:hover { background: none; }
+  .cal-day.empty { cursor: default; }
+  .cal-day.empty:hover { background: none; }
+
+  .time-section { padding: 16px 20px; }
+  .time-label { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 10px; }
+  .time-period { font-size: 12px; font-weight: 600; color: var(--gray-500); margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .time-slot {
+    padding: 10px; text-align: center; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--gray-200); font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.15s; color: var(--gray-700);
+  }
+  .time-slot:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
+  .time-slot.selected { background: var(--blue); color: #fff; border-color: var(--blue); font-weight: 600; }
+
+  .cal-footer { padding: 12px 20px 20px; }
+  .btn-primary {
+    width: 100%; padding: 15px; background: var(--blue); color: #fff;
+    border: none; border-radius: var(--radius); font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; font-family: inherit;
+  }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-primary:disabled { background: var(--gray-300); cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ─── INTAKE FORM PAGE ─── */
+  .form-section { padding: 20px; }
+  .form-title { font-size: 18px; font-weight: 700; color: var(--gray-800); }
+  .form-subtitle { font-size: 13px; color: var(--gray-500); margin-top: 4px; margin-bottom: 20px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; display: block; }
+  .form-label .req { color: var(--red); }
+  .form-input {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
+    color: var(--gray-800); transition: all 0.2s; background: #fff;
+    outline: none;
+  }
+  .form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(74,108,247,0.1); }
+  .form-input::placeholder { color: var(--gray-400); }
+  textarea.form-input { min-height: 80px; resize: vertical; }
+  select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239CA3AF' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+
+  .checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .checkbox { width: 18px; height: 18px; border: 2px solid var(--gray-300);
+    border-radius: 4px; flex-shrink: 0; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; margin-top: 1px; transition: all 0.15s; }
+  .checkbox.checked { background: var(--blue); border-color: var(--blue); }
+  .checkbox.checked::after { content: '\2713'; color: #fff; font-size: 11px; font-weight: 700; }
+  .checkbox-label { font-size: 13px; color: var(--gray-600); line-height: 1.4; cursor: pointer; }
+
+  /* ─── PAYMENT PAGE ─── */
+  .payment-summary {
+    margin: 20px; padding: 16px; background: var(--gray-50);
+    border-radius: var(--radius); border: 1px solid var(--gray-100);
+  }
+  .pay-row { display: flex; justify-content: space-between; padding: 6px 0;
+    font-size: 14px; color: var(--gray-600); }
+  .pay-row.total { border-top: 1.5px solid var(--gray-200); margin-top: 8px;
+    padding-top: 12px; font-weight: 700; color: var(--gray-900); font-size: 16px; }
+
+  .saved-card {
+    margin: 0 20px 16px; padding: 14px 16px; border: 2px solid var(--blue);
+    border-radius: var(--radius); display: flex; align-items: center; gap: 12px;
+    background: var(--blue-bg); cursor: pointer;
+  }
+  .card-icon { width: 40px; height: 26px; background: linear-gradient(135deg, #1a1f36, #2a3158);
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 10px; font-weight: 700; }
+  .card-details { flex: 1; }
+  .card-number { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  .card-exp { font-size: 11px; color: var(--gray-500); }
+  .card-check { width: 20px; height: 20px; background: var(--blue); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 11px; }
+
+  .add-card { margin: 0 20px 16px; padding: 12px 16px; border: 1.5px dashed var(--gray-300);
+    border-radius: var(--radius); text-align: center; font-size: 13px;
+    color: var(--gray-500); cursor: pointer; transition: all 0.2s; }
+  .add-card:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
+
+  .pay-footer { padding: 12px 20px 20px; }
+  .secure-note { display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 11px; color: var(--gray-400); margin-top: 10px; }
+
+  /* ─── CONFIRMATION PAGE ─── */
+  .confirm-page { text-align: center; padding: 40px 20px; }
+  .confirm-icon { width: 80px; height: 80px; background: var(--green-bg);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; }
+  .confirm-icon svg { width: 40px; height: 40px; color: var(--green); }
+  .confirm-title { font-size: 22px; font-weight: 800; color: var(--gray-900); }
+  .confirm-sub { font-size: 14px; color: var(--gray-500); margin-top: 6px; }
+  .confirm-card {
+    margin: 24px 0; padding: 20px; background: #fff;
+    border-radius: var(--radius); box-shadow: var(--shadow); text-align: left;
+    border: 1px solid var(--gray-100);
+  }
+  .cc-row { display: flex; justify-content: space-between; padding: 8px 0;
+    font-size: 13px; }
+  .cc-label { color: var(--gray-500); }
+  .cc-value { font-weight: 600; color: var(--gray-800); }
+  .cc-divider { border: none; border-top: 1px solid var(--gray-100); margin: 8px 0; }
+  .btn-outline {
+    width: 100%; padding: 14px; background: #fff; color: var(--blue);
+    border: 2px solid var(--blue); border-radius: var(--radius); font-size: 14px;
+    font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit;
+    margin-top: 10px;
+  }
+  .btn-outline:hover { background: var(--blue-bg); }
+
+  /* ─── SEARCH PAGE ─── */
+  .search-page-bar {
+    display: flex; align-items: center; gap: 10px; padding: 12px 20px;
+    border-bottom: 1px solid var(--gray-100); background: #fff;
+  }
+  .search-page-bar input {
+    flex: 1; border: none; font-size: 15px; font-family: inherit;
+    color: var(--gray-800); outline: none;
+  }
+  .search-page-bar input::placeholder { color: var(--gray-400); }
+  .filter-chips { display: flex; gap: 8px; padding: 12px 20px; overflow-x: auto; }
+  .filter-chips::-webkit-scrollbar { display: none; }
+  .chip { padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    border: 1.5px solid var(--gray-200); color: var(--gray-600); cursor: pointer;
+    white-space: nowrap; transition: all 0.15s; background: #fff; }
+  .chip:hover, .chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .search-results { padding: 4px 20px 20px; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-in { animation: fadeIn 0.3s ease-out; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .slide-up { animation: slideUp 0.35s ease-out; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  .pulse { animation: pulse 0.3s ease; }
+
+  /* Prototype label */
+  .proto-label {
+    text-align: center; padding: 12px; font-size: 11px; color: var(--gray-400);
+    background: var(--gray-50); letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-label">SERVA &mdash; INTERACTIVE PROTOTYPE &mdash; CLICK TO NAVIGATE</div>
+
+<div class="phone-frame">
+  <div class="notch"></div>
+  <div class="status-bar">
+    <span>9:41</span>
+    <span style="display:flex;gap:4px;align-items:center;">
+      <svg width="15" height="12" viewBox="0 0 15 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="0.5"/><rect x="4" y="4" width="3" height="8" rx="0.5"/><rect x="8" y="2" width="3" height="10" rx="0.5"/><rect x="12" y="0" width="3" height="12" rx="0.5"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 3.5a6 6 0 00-4.24 1.76l1.42 1.42A4 4 0 018 5.5a4 4 0 012.82 1.18l1.42-1.42A6 6 0 008 3.5zM8 0C4.9 0 2.06 1.27 0 3.27l1.42 1.42A9 9 0 018 2a9 9 0 016.58 2.69L16 3.27C13.94 1.27 11.1 0 8 0zm0 7a2 2 0 00-1.41.59L8 9l1.41-1.41A2 2 0 008 7z"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="currentColor"><rect x="0" y="1" width="20" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="21" y="4" width="2" height="4" rx="1"/><rect x="2" y="3" width="14" height="6" rx="1" fill="#10B981"/></svg>
+    </span>
+  </div>
+
+  <div class="screen" id="screen">
+    <!-- HOME PAGE -->
+    <div class="page active" id="page-home">
+      <div class="home-header">
+        <div class="home-logo">serva<span>.</span></div>
+        <div class="home-subtitle">Book anything. Pay seamlessly.</div>
+        <div class="search-bar" onclick="goTo('search')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>Search services near you...</span>
+        </div>
+      </div>
+
+      <div class="categories">
+        <div class="section-label">Browse Categories</div>
+        <div class="cat-grid">
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#FEE2E2,#FECACA)">&#128137;</div>
+            <div class="cat-name">Healthcare</div>
+          </div>
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#FCE7F3,#FBCFE8)">&#128135;</div>
+            <div class="cat-name">Beauty</div>
+          </div>
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE)">&#128170;</div>
+            <div class="cat-name">Fitness</div>
+          </div>
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0)">&#127968;</div>
+            <div class="cat-name">Home</div>
+          </div>
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A)">&#128663;</div>
+            <div class="cat-name">Auto</div>
+          </div>
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE)">&#128054;</div>
+            <div class="cat-name">Pets</div>
+          </div>
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#E0E7FF,#C7D2FE)">&#9878;&#65039;</div>
+            <div class="cat-name">Legal</div>
+          </div>
+          <div class="cat-item" onclick="goTo('search')">
+            <div class="cat-icon" style="background:linear-gradient(135deg,#F3E8FF,#E9D5FF)">&#127860;</div>
+            <div class="cat-name">Dining</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="featured">
+        <div class="section-label">Featured Near You</div>
+        <div class="business-card" onclick="goTo('profile')">
+          <div class="biz-img" style="background:linear-gradient(135deg,#1a1f36 0%,#2a3158 50%,#4A6CF7 100%)">
+            <div class="biz-badge">Top Rated</div>
+          </div>
+          <div class="biz-info">
+            <div class="biz-name">The Polished Look Salon</div>
+            <div class="biz-cat">Hair Salon &bull; Full Service</div>
+            <div class="biz-meta">
+              <div class="biz-rating"><span class="stars">&#9733;</span> 4.9 (312)</div>
+              <div class="biz-price">$$</div>
+              <div class="biz-distance">0.8 mi</div>
+            </div>
+          </div>
+        </div>
+        <div class="business-card" onclick="goTo('profile')">
+          <div class="biz-img" style="background:linear-gradient(135deg,#10B981 0%,#059669 50%,#047857 100%)">
+            <div class="biz-badge" style="background:var(--green)">New</div>
+          </div>
+          <div class="biz-info">
+            <div class="biz-name">Peak Performance Physical Therapy</div>
+            <div class="biz-cat">Physical Therapy &bull; Sports Medicine</div>
+            <div class="biz-meta">
+              <div class="biz-rating"><span class="stars">&#9733;</span> 4.8 (89)</div>
+              <div class="biz-price">$$$</div>
+              <div class="biz-distance">1.2 mi</div>
+            </div>
+          </div>
+        </div>
+        <div class="business-card" onclick="goTo('profile')">
+          <div class="biz-img" style="background:linear-gradient(135deg,#F59E0B 0%,#D97706 50%,#B45309 100%)"></div>
+          <div class="biz-info">
+            <div class="biz-name">Elite Auto Detailing</div>
+            <div class="biz-cat">Auto Detailing &bull; Ceramic Coating</div>
+            <div class="biz-meta">
+              <div class="biz-rating"><span class="stars">&#9733;</span> 4.7 (204)</div>
+              <div class="biz-price">$$</div>
+              <div class="biz-distance">2.1 mi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH PAGE -->
+    <div class="page" id="page-search">
+      <div class="search-page-bar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" style="cursor:pointer" onclick="goTo('home')"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <input type="text" placeholder="Search businesses or services..." autofocus>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <div class="filter-chips">
+        <div class="chip active">All</div>
+        <div class="chip">Near Me</div>
+        <div class="chip">Top Rated</div>
+        <div class="chip">Healthcare</div>
+        <div class="chip">Beauty</div>
+        <div class="chip">Fitness</div>
+        <div class="chip">Home</div>
+      </div>
+      <div class="search-results">
+        <div class="business-card" onclick="goTo('profile')">
+          <div class="biz-img" style="background:linear-gradient(135deg,#1a1f36 0%,#2a3158 50%,#4A6CF7 100%)">
+            <div class="biz-badge">Top Rated</div>
+          </div>
+          <div class="biz-info">
+            <div class="biz-name">The Polished Look Salon</div>
+            <div class="biz-cat">Hair Salon &bull; Full Service</div>
+            <div class="biz-meta">
+              <div class="biz-rating"><span class="stars">&#9733;</span> 4.9 (312)</div>
+              <div class="biz-price">$$</div>
+              <div class="biz-distance">0.8 mi</div>
+            </div>
+          </div>
+        </div>
+        <div class="business-card" onclick="goTo('profile')">
+          <div class="biz-img" style="background:linear-gradient(135deg,#6366F1,#4F46E5)"></div>
+          <div class="biz-info">
+            <div class="biz-name">Bright Smile Dental</div>
+            <div class="biz-cat">Dentist &bull; Cosmetic &bull; General</div>
+            <div class="biz-meta">
+              <div class="biz-rating"><span class="stars">&#9733;</span> 4.6 (178)</div>
+              <div class="biz-price">$$$</div>
+              <div class="biz-distance">1.5 mi</div>
+            </div>
+          </div>
+        </div>
+        <div class="business-card" onclick="goTo('profile')">
+          <div class="biz-img" style="background:linear-gradient(135deg,#EC4899,#DB2777)"></div>
+          <div class="biz-info">
+            <div class="biz-name">Zen Nail Spa</div>
+            <div class="biz-cat">Nail Salon &bull; Spa</div>
+            <div class="biz-meta">
+              <div class="biz-rating"><span class="stars">&#9733;</span> 4.8 (256)</div>
+              <div class="biz-price">$$</div>
+              <div class="biz-distance">0.5 mi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSINESS PROFILE PAGE -->
+    <div class="page" id="page-profile">
+      <div class="profile-hero" style="background:linear-gradient(135deg,#1a1f36 0%,#2a3158 50%,#4A6CF7 100%)">
+        <button class="back-btn" onclick="goBack()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">The Polished Look Salon</div>
+        <div class="profile-cat-line">
+          <span class="profile-cat">Hair Salon</span>
+          <span class="profile-dot"></span>
+          <span class="profile-addr">412 Main St, Austin TX</span>
+        </div>
+        <div class="profile-stats">
+          <div class="stat"><span class="stars">&#9733;</span><span class="stat-val">4.9</span><span class="stat-label">(312 reviews)</span></div>
+          <div class="stat"><span class="stat-val">8 yrs</span><span class="stat-label">in business</span></div>
+        </div>
+      </div>
+
+      <div class="profile-tabs">
+        <div class="tab active">Services</div>
+        <div class="tab">Reviews</div>
+        <div class="tab">Photos</div>
+        <div class="tab">Info</div>
+      </div>
+
+      <div class="services-list">
+        <div class="service-item" onclick="goTo('calendar')">
+          <div class="svc-left">
+            <div class="svc-name">Women's Haircut & Style</div>
+            <div class="svc-dur">45 min</div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-price">$65</div>
+            <div class="svc-book">Book &rarr;</div>
+          </div>
+        </div>
+        <div class="service-item" onclick="goTo('calendar')">
+          <div class="svc-left">
+            <div class="svc-name">Men's Haircut</div>
+            <div class="svc-dur">30 min</div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-price">$40</div>
+            <div class="svc-book">Book &rarr;</div>
+          </div>
+        </div>
+        <div class="service-item" onclick="goTo('calendar')">
+          <div class="svc-left">
+            <div class="svc-name">Full Color</div>
+            <div class="svc-dur">90 min</div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-price">$120</div>
+            <div class="svc-book">Book &rarr;</div>
+          </div>
+        </div>
+        <div class="service-item" onclick="goTo('calendar')">
+          <div class="svc-left">
+            <div class="svc-name">Balayage / Highlights</div>
+            <div class="svc-dur">120 min</div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-price">$185</div>
+            <div class="svc-book">Book &rarr;</div>
+          </div>
+        </div>
+        <div class="service-item" onclick="goTo('calendar')">
+          <div class="svc-left">
+            <div class="svc-name">Blowout</div>
+            <div class="svc-dur">30 min</div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-price">$45</div>
+            <div class="svc-book">Book &rarr;</div>
+          </div>
+        </div>
+        <div class="service-item" onclick="goTo('calendar')">
+          <div class="svc-left">
+            <div class="svc-name">Deep Conditioning Treatment</div>
+            <div class="svc-dur">20 min</div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-price">$35</div>
+            <div class="svc-book">Book &rarr;</div>
+          </div>
+        </div>
+        <div class="service-item" onclick="goTo('calendar')">
+          <div class="svc-left">
+            <div class="svc-name">Bridal Updo</div>
+            <div class="svc-dur">60 min</div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-price">$150</div>
+            <div class="svc-book">Book &rarr;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALENDAR PAGE -->
+    <div class="page" id="page-calendar">
+      <div style="padding:12px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--gray-100)">
+        <button class="back-btn" style="position:static;width:30px;height:30px;background:var(--gray-100);color:var(--gray-600)" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--gray-800)">Women's Haircut & Style</div>
+          <div style="font-size:12px;color:var(--gray-500)">45 min &bull; $65 &bull; The Polished Look Salon</div>
+        </div>
+      </div>
+
+      <div class="month-nav">
+        <button class="month-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="month-label">April 2026</span>
+        <button class="month-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+
+      <div class="cal-days">
+        <div class="cal-day-label">S</div><div class="cal-day-label">M</div><div class="cal-day-label">T</div><div class="cal-day-label">W</div><div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div>
+        <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day disabled">1</div><div class="cal-day disabled">2</div><div class="cal-day disabled">3</div><div class="cal-day disabled">4</div>
+        <div class="cal-day disabled">5</div><div class="cal-day disabled">6</div><div class="cal-day disabled">7</div><div class="cal-day disabled">8</div><div class="cal-day disabled">9</div><div class="cal-day disabled">10</div><div class="cal-day disabled">11</div>
+        <div class="cal-day disabled">12</div><div class="cal-day today" onclick="selectDay(this)">13</div><div class="cal-day" onclick="selectDay(this)">14</div><div class="cal-day" onclick="selectDay(this)">15</div><div class="cal-day selected" onclick="selectDay(this)">16</div><div class="cal-day" onclick="selectDay(this)">17</div><div class="cal-day" onclick="selectDay(this)">18</div>
+        <div class="cal-day" onclick="selectDay(this)">19</div><div class="cal-day" onclick="selectDay(this)">20</div><div class="cal-day" onclick="selectDay(this)">21</div><div class="cal-day" onclick="selectDay(this)">22</div><div class="cal-day" onclick="selectDay(this)">23</div><div class="cal-day" onclick="selectDay(this)">24</div><div class="cal-day" onclick="selectDay(this)">25</div>
+        <div class="cal-day" onclick="selectDay(this)">26</div><div class="cal-day" onclick="selectDay(this)">27</div><div class="cal-day" onclick="selectDay(this)">28</div><div class="cal-day" onclick="selectDay(this)">29</div><div class="cal-day" onclick="selectDay(this)">30</div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+      </div>
+
+      <div class="time-section">
+        <div class="time-label">Available Times</div>
+        <div class="time-period">Morning</div>
+        <div class="time-grid">
+          <div class="time-slot" onclick="selectTime(this)">9:00 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">9:45 AM</div>
+          <div class="time-slot" onclick="selectTime(this)">10:30 AM</div>
+          <div class="time-slot selected" onclick="selectTime(this)">11:15 AM</div>
+        </div>
+        <div class="time-period">Afternoon</div>
+        <div class="time-grid">
+          <div class="time-slot" onclick="selectTime(this)">1:00 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">1:45 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">2:30 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">3:15 PM</div>
+          <div class="time-slot" onclick="selectTime(this)">4:00 PM</div>
+        </div>
+      </div>
+
+      <div class="cal-footer">
+        <button class="btn-primary" onclick="goTo('intake')">Continue</button>
+      </div>
+    </div>
+
+    <!-- INTAKE FORM PAGE -->
+    <div class="page" id="page-intake">
+      <div style="padding:12px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--gray-100)">
+        <button class="back-btn" style="position:static;width:30px;height:30px;background:var(--gray-100);color:var(--gray-600)" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div style="font-size:15px;font-weight:700;color:var(--gray-800)">Client Information</div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-title">Tell us about yourself</div>
+        <div class="form-subtitle">The Polished Look Salon needs this info to prepare for your visit.</div>
+
+        <div class="form-group">
+          <label class="form-label">Full Name <span class="req">*</span></label>
+          <input class="form-input" type="text" value="Jed Beaumont" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span class="req">*</span></label>
+          <input class="form-input" type="email" value="jed@beaumontconsulting.co" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone <span class="req">*</span></label>
+          <input class="form-input" type="tel" placeholder="(555) 123-4567" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Hair Type</label>
+          <select class="form-input">
+            <option>Select hair type...</option>
+            <option>Straight</option>
+            <option>Wavy</option>
+            <option selected>Curly</option>
+            <option>Coily</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Any allergies or sensitivities?</label>
+          <textarea class="form-input" placeholder="e.g., latex allergy, sensitive scalp..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Special requests or notes</label>
+          <textarea class="form-input" placeholder="Anything your stylist should know..."></textarea>
+        </div>
+        <div style="margin-bottom:20px">
+          <div class="checkbox-row" onclick="this.querySelector('.checkbox').classList.toggle('checked')">
+            <div class="checkbox checked"></div>
+            <span class="checkbox-label">I agree to the cancellation policy (free cancellation up to 24 hours before appointment)</span>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="goTo('payment')">Continue to Payment</button>
+      </div>
+    </div>
+
+    <!-- PAYMENT PAGE -->
+    <div class="page" id="page-payment">
+      <div style="padding:12px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--gray-100)">
+        <button class="back-btn" style="position:static;width:30px;height:30px;background:var(--gray-100);color:var(--gray-600)" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <div style="font-size:15px;font-weight:700;color:var(--gray-800)">Payment</div>
+      </div>
+
+      <div class="payment-summary">
+        <div class="pay-row"><span>Women's Haircut & Style</span><span style="font-weight:600">$65.00</span></div>
+        <div class="pay-row"><span>Service fee</span><span>$1.63</span></div>
+        <div class="pay-row total"><span>Total</span><span>$66.63</span></div>
+      </div>
+
+      <div style="padding:0 20px 8px;font-size:13px;font-weight:600;color:var(--gray-700)">Payment Method</div>
+      <div class="saved-card">
+        <div class="card-icon">VISA</div>
+        <div class="card-details">
+          <div class="card-number">&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 4242</div>
+          <div class="card-exp">Expires 09/28</div>
+        </div>
+        <div class="card-check">&#10003;</div>
+      </div>
+      <div class="add-card">+ Add new payment method</div>
+
+      <div class="payment-summary" style="margin-top:0">
+        <div style="font-size:12px;font-weight:600;color:var(--gray-700);margin-bottom:8px">Booking Summary</div>
+        <div class="pay-row"><span>Date</span><span style="font-weight:500">Thursday, April 16, 2026</span></div>
+        <div class="pay-row"><span>Time</span><span style="font-weight:500">11:15 AM</span></div>
+        <div class="pay-row"><span>Duration</span><span style="font-weight:500">45 minutes</span></div>
+        <div class="pay-row"><span>Location</span><span style="font-weight:500">412 Main St, Austin TX</span></div>
+      </div>
+
+      <div class="pay-footer">
+        <button class="btn-primary" onclick="goTo('confirm')" style="background:var(--green)">
+          Pay $66.63 & Confirm Booking
+        </button>
+        <div class="secure-note">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg>
+          Secured by Stripe &bull; 256-bit encryption
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIRMATION PAGE -->
+    <div class="page" id="page-confirm">
+      <div class="confirm-page slide-up">
+        <div class="confirm-icon pulse">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="confirm-title">Booking Confirmed!</div>
+        <div class="confirm-sub">You're all set. See you Thursday!</div>
+
+        <div class="confirm-card">
+          <div class="cc-row"><span class="cc-label">Service</span><span class="cc-value">Women's Haircut & Style</span></div>
+          <hr class="cc-divider">
+          <div class="cc-row"><span class="cc-label">Business</span><span class="cc-value">The Polished Look Salon</span></div>
+          <hr class="cc-divider">
+          <div class="cc-row"><span class="cc-label">Date</span><span class="cc-value">Thu, Apr 16 at 11:15 AM</span></div>
+          <hr class="cc-divider">
+          <div class="cc-row"><span class="cc-label">Address</span><span class="cc-value">412 Main St, Austin TX</span></div>
+          <hr class="cc-divider">
+          <div class="cc-row"><span class="cc-label">Total Paid</span><span class="cc-value" style="color:var(--green)">$66.63</span></div>
+          <hr class="cc-divider">
+          <div class="cc-row"><span class="cc-label">Confirmation #</span><span class="cc-value">SRV-2026-04162</span></div>
+        </div>
+
+        <button class="btn-primary" onclick="goTo('home')">Back to Home</button>
+        <button class="btn-outline" onclick="goTo('home')">Add to Calendar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="goTo('home')">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Home</span>
+    </div>
+    <div class="nav-item" onclick="goTo('search')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <span>Search</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Bookings</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const history = ['home'];
+
+  function goTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById('page-' + pageId);
+    page.classList.add('active');
+    page.classList.add('animate-in');
+    setTimeout(() => page.classList.remove('animate-in'), 300);
+
+    document.getElementById('screen').scrollTop = 0;
+
+    // Update nav
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if (pageId === 'home') document.querySelectorAll('.nav-item')[0].classList.add('active');
+    if (pageId === 'search') document.querySelectorAll('.nav-item')[1].classList.add('active');
+
+    if (history[history.length - 1] !== pageId) history.push(pageId);
+  }
+
+  function goBack() {
+    if (history.length > 1) {
+      history.pop();
+      goTo(history[history.length - 1]);
+      history.pop(); // Remove duplicate from goTo push
+    }
+  }
+
+  function selectDay(el) {
+    if (el.classList.contains('disabled') || el.classList.contains('empty')) return;
+    document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function selectTime(el) {
+    document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Make chips interactive
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Make tabs interactive
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
