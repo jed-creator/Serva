@@ -5,9 +5,16 @@
  *
  * Confirm, complete, cancel, mark no-show — all on existing bookings.
  * Actual booking creation happens from the consumer app in Phase 7.
+ *
+ * Each action sends a customer email via Resend (best-effort, non-blocking).
  */
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
+import {
+  sendBookingConfirmedEmail,
+  sendBookingCancelledEmail,
+  sendBookingCompletedEmail,
+} from '@/lib/email/notifications';
 
 export async function confirmBookingAction(bookingId: string) {
   const supabase = await createClient();
@@ -17,6 +24,8 @@ export async function confirmBookingAction(bookingId: string) {
     .eq('id', bookingId)
     .eq('status', 'pending');
   if (error) throw new Error(error.message);
+  // Fire-and-forget email (errors logged but don't block action)
+  void sendBookingConfirmedEmail(bookingId);
   revalidatePath('/dashboard/bookings');
   revalidatePath(`/dashboard/bookings/${bookingId}`);
 }
@@ -31,6 +40,7 @@ export async function completeBookingAction(bookingId: string) {
     })
     .eq('id', bookingId);
   if (error) throw new Error(error.message);
+  void sendBookingCompletedEmail(bookingId);
   revalidatePath('/dashboard/bookings');
   revalidatePath(`/dashboard/bookings/${bookingId}`);
 }
@@ -49,6 +59,7 @@ export async function cancelBookingAction(
     })
     .eq('id', bookingId);
   if (error) throw new Error(error.message);
+  void sendBookingCancelledEmail(bookingId);
   revalidatePath('/dashboard/bookings');
   revalidatePath(`/dashboard/bookings/${bookingId}`);
 }
