@@ -35,3 +35,23 @@ export async function quoteRide(
 
   return settled.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
 }
+
+/**
+ * Text-only companion to `quoteRide`. The /ride landing page doesn't
+ * have map pickers yet, so it calls this to list whatever rideshare
+ * adapters advertise for a plain search query. The real ride flow
+ * (with pickup/dropoff coordinates) uses `quoteRide` above.
+ */
+export async function searchRideshare(
+  query: string,
+): Promise<NormalizedSearchResult[]> {
+  const adapters = integrationRegistry
+    .list()
+    .filter((a) => a.category === 'rideshare');
+
+  const settled = await Promise.allSettled(
+    adapters.map((a) => a.search({ text: query || 'ride' })),
+  );
+
+  return settled.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
+}

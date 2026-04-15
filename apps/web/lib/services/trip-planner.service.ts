@@ -1,14 +1,47 @@
 /**
- * Trip planner service — scaffold stub.
+ * Trip planner service.
  *
- * The real service will persist trips to the `trips` table, attach
- * itinerary items across providers, and produce `TripItinerary`
- * structures. Today it just validates input shape and returns a stub
- * trip envelope so the route handler and client can be wired end to
- * end against a stable contract while the persistence layer is
- * designed.
+ * Two responsibilities that share the same domain:
+ *
+ *   1. `searchTravel(query)` — fans out across every travel adapter
+ *      (flights, hotels direct, experiences) and returns a single
+ *      normalized result list for the /trips landing page.
+ *   2. `validateCreateTrip` / `createStubTrip` / `listStubTrips` —
+ *      scaffolded trip-persistence stubs. Real persistence will land
+ *      with the `trips` table work.
  */
+import { integrationRegistry } from '@/lib/integrations/core';
+import type {
+  IntegrationCategory,
+  NormalizedSearchResult,
+} from '@/lib/integrations/core';
 import type { Trip } from '@orvo/shared/super-app';
+
+const TRAVEL_CATEGORIES: IntegrationCategory[] = [
+  'travel',
+  'hotel-direct',
+  'experiences',
+];
+
+/**
+ * Fan out a text search across every travel-adjacent adapter.
+ * Mirrors the pattern in `eat.service.ts` / `booking.service.ts` — a
+ * misbehaving adapter can't brick the whole fan-out because
+ * `Promise.allSettled` drops rejected results silently.
+ */
+export async function searchTravel(
+  query: string,
+): Promise<NormalizedSearchResult[]> {
+  const adapters = integrationRegistry
+    .list()
+    .filter((a) => TRAVEL_CATEGORIES.includes(a.category));
+
+  const settled = await Promise.allSettled(
+    adapters.map((a) => a.search({ text: query })),
+  );
+
+  return settled.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
+}
 
 export interface CreateTripInput {
   title: string;
