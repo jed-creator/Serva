@@ -131,3 +131,37 @@ export async function deleteCategoryAction(categoryId: string) {
   await admin.from('categories').delete().eq('id', categoryId);
   revalidatePath('/admin/categories');
 }
+
+// ---------------------------------------------------------------------------
+// Integration Hub admin actions (Phase 6.1)
+// ---------------------------------------------------------------------------
+// Toggle a provider on/off and capture admin notes. The `enabled` column
+// is read by Phase 6.3's runtime filter (not yet wired) — for now the
+// toggle persists state for the admin UI and for downstream health views.
+
+export async function toggleIntegrationProviderAction(
+  key: string,
+  enabled: boolean,
+) {
+  await assertAdmin();
+  if (!key) throw new Error('Provider key is required');
+  const admin = createAdminClient();
+  await admin
+    .from('integration_providers')
+    .update({ enabled })
+    .eq('key', key);
+  revalidatePath('/admin/integrations');
+}
+
+export async function setIntegrationProviderNotesAction(formData: FormData) {
+  await assertAdmin();
+  const key = formData.get('key')?.toString().trim();
+  const notes = formData.get('admin_notes')?.toString() ?? '';
+  if (!key) throw new Error('Provider key is required');
+  const admin = createAdminClient();
+  await admin
+    .from('integration_providers')
+    .update({ admin_notes: notes || null })
+    .eq('key', key);
+  revalidatePath('/admin/integrations');
+}

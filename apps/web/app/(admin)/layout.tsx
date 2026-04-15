@@ -31,6 +31,7 @@ export default async function AdminLayout({
     { href: '/admin/users', label: 'Users' },
     { href: '/admin/reviews', label: 'Reviews' },
     { href: '/admin/categories', label: 'Categories' },
+    { href: '/admin/integrations', label: 'Integrations' },
   ];
 
   return (

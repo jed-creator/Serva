@@ -32,9 +32,20 @@ Monorepo with three apps sharing a Supabase backend:
 
 ## Development Status
 
-This project is being built following the 108-step Build Guide in `docs/`. Current phase: **Phase 1 — Environment Setup**.
+This project is being built in two layers:
 
-See [`PLAN.md`](./PLAN.md) for the full build plan.
+1. **Original MVP** — first-party two-sided marketplace (business
+   dashboard, Stripe Connect, intake forms, in-app booking for
+   Orvo-native providers). Built against the 108-step Build Guide in
+   `docs/`. See [`PLAN.md`](./PLAN.md).
+2. **Super-app expansion** — universal search-and-book layer that
+   fans a single query out across 89 third-party providers (OpenTable,
+   Uber, Expedia, Ticketmaster, Shopify, …) in 16 integration
+   categories. Consumers can book any of them without installing the
+   third-party app. See [`docs/SUPER_APP.md`](./docs/SUPER_APP.md)
+   for architecture and
+   [`docs/FEATURE_OUTLINE_COVERAGE.md`](./docs/FEATURE_OUTLINE_COVERAGE.md)
+   for a Feature Outline → code mapping.
 
 ## Local Development
 
