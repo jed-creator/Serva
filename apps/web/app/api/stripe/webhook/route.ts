@@ -57,7 +57,7 @@ export async function POST(request: Request) {
 
       case 'payment_intent.succeeded': {
         const pi = event.data.object as Stripe.PaymentIntent;
-        const bookingId = pi.metadata?.serva_booking_id;
+        const bookingId = pi.metadata?.orvo_booking_id;
         if (bookingId) {
           await supabase
             .from('payments')
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
 
       case 'payment_intent.payment_failed': {
         const pi = event.data.object as Stripe.PaymentIntent;
-        const bookingId = pi.metadata?.serva_booking_id;
+        const bookingId = pi.metadata?.orvo_booking_id;
         if (bookingId) {
           await supabase
             .from('payments')
