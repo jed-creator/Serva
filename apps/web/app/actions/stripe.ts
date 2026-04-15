@@ -53,8 +53,8 @@ export async function createStripeAccountLinkAction() {
         transfers: { requested: true },
       },
       metadata: {
-        serva_business_id: business.id,
-        serva_owner_id: user.id,
+        orvo_business_id: business.id,
+        orvo_owner_id: user.id,
       },
     });
 

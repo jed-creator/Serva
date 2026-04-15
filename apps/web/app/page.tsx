@@ -52,8 +52,18 @@ export default function HomePage() {
       </main>
 
       <footer className="border-t border-zinc-200 bg-zinc-50">
-        <div className="max-w-6xl mx-auto px-6 py-6 text-center text-sm text-zinc-500">
-          © {new Date().getFullYear()} Orvo · Universal Booking Marketplace
+        <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-zinc-500">
+          <span>
+            © {new Date().getFullYear()} Orvo · Universal Booking Marketplace
+          </span>
+          <nav className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-brand-primary">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-brand-primary">
+              Terms
+            </Link>
+          </nav>
         </div>
       </footer>
     </div>
